@@ -16,7 +16,10 @@ def get_test_path():
 
 
 def get_random_path():
-    return [1,2]
+    graph_index = int(global_game_data.current_graph_index)
+    graph = graph_data.graph_data[graph_index]
+    dfs_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index], path=[])
+    return dfs_path_to_target
 
 
 def get_dfs_path():
@@ -44,6 +47,27 @@ def get_bfs_path():
 
 def get_dijkstra_path():
     return [1,2]
+
+def generate_random_path(graph, start, end, path=[]):
+    path = path + [start]
+    if start == end:
+        return path
+    
+    adj_list = graph[start][1]
+
+    if adj_list is None:
+        print('ERROR')
+        return None
+
+    while adj_list:
+        next_node = random.choice(adj_list)
+
+        if next_node not in path:
+
+            new_path = generate_random_path(graph, next_node, end, path)
+            if new_path:
+                return new_path
+    return None
 
 def generate_dfs_path(graph, start, end, path=[]):
     path = path + [start]
