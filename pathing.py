@@ -52,6 +52,7 @@ def generate_random_path(graph, start, end):
     curr_node = start
 
     while curr_node != end :
+        curr_node = path[len(path) - 1]
         neighbors = graph[curr_node][1]
         next_node = random.choice(neighbors)
         path.append(next_node)
