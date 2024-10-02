@@ -18,8 +18,8 @@ def get_test_path():
 def get_random_path():
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
-    random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
-    random_path_to_exit = generate_random_path(graph, global_game_data.target_node[graph_index], graph[len(graph) - 1][1])
+    #random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
+    #random_path_to_exit = generate_random_path(graph, global_game_data.target_node[graph_index], graph[len(graph) - 1][1])
 
     #if random_path_to_target is None :
      #   if random_path_to_exit is None : 
@@ -31,7 +31,8 @@ def get_random_path():
      #   return random_path_to_target
 
     #random_path = random_path_to_target[:-1] + random_path_to_exit   
-    return random_path_to_target
+    #return random_path_to_target
+    return [1,2]
 
 
 def get_dfs_path():
@@ -54,10 +55,10 @@ def generate_random_path(graph, start, end):
     while curr_node != end :
         curr_node = path[len(path) - 1]
         neighbors = graph[curr_node][1]
-        valid_neighbors = neighbors[:]
-        for node in path:
-            valid_neighbors.remove(node)
-        
+        #valid_neighbors = neighbors[:]
+        #for node in path:
+        #    valid_neighbors.remove(node)
+        valid_neighbors = list(set(neighbors) - set(path))
         next_node = random.choice(valid_neighbors)
         path.append(next_node)
 
