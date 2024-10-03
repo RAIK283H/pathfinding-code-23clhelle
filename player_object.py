@@ -18,6 +18,7 @@ class Player:
         self.sprite = pyglet.sprite.Sprite(img=self.player_image, x=0, y=0, batch=batch, group=group)
         self.player_config_data = player_config_data
         self.distance_traveled = 0
+        self.edges_traveled = 0
 
     def update_location(self, x, y):
         self.sprite.update(relative_display_functions.get_relative_graph_x(x) - self.sprite.width / 2,
@@ -28,6 +29,7 @@ class Player:
         self.absolute_x = graph_data.graph_data[global_game_data.current_graph_index][0][0][0]
         self.absolute_y = graph_data.graph_data[global_game_data.current_graph_index][0][0][1]
         self.distance_traveled = 0
+        self.edges_traveled = 0
 
     def update(self, dt):
         last_absolute_x = self.absolute_x
@@ -54,6 +56,25 @@ class Player:
                 global_game_data.graph_paths[self.player_index][self.current_objective]][0][1]
             difference_in_x = target_x - self.absolute_x
             difference_in_y = target_y - self.absolute_y
+
+
+
+            nodes = graph_data.graph_data[global_game_data.current_graph_index]
+            print(nodes)
+            
+            for i in range(len(nodes)):
+                node = nodes[i]
+                x = node[0][0]
+                y = node[0][1]
+                x_diff = x - self.absolute_x
+                y_diff = y - self.absolute_y
+                if x_diff == 0 and y_diff == 0:
+                    self.edges_traveled = self.edges_traveled + 1
+                
+
+           
+
+
             difference = math.sqrt(pow(difference_in_x, 2) + pow(difference_in_y, 2))
             change_in_x = 0
             change_in_y = 0
@@ -77,5 +98,17 @@ class Player:
                 self.current_objective += 1
 
         self.distance_traveled = self.distance_traveled + math.sqrt(math.pow(last_absolute_x-self.absolute_x, 2) + math.pow(last_absolute_y-self.absolute_y, 2))
+        #self.edges_traveled = self.edges_traveled + 1
+        #print(global_game_data.graph_paths)
+        #print(graph_data.graph_data[global_game_data.current_graph_index])
+        
+        #target_x = graph_data.graph_data[global_game_data.current_graph_index][
+        #        global_game_data.graph_paths[self.player_index][self.current_objective]][0][0]
+        #target_y = graph_data.graph_data[global_game_data.current_graph_index][
+        #        global_game_data.graph_paths[self.player_index][self.current_objective]][0][1]
+        #if self.absolute_x == target_x and self.absolute_y == target_y:
+        #    self.edges_traveled = self.edges_traveled + 1
         self.sprite.visible = (global_game_data.current_player_index == self.player_index)
         self.update_location(self.absolute_x, self.absolute_y)
+
+    
