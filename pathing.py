@@ -19,7 +19,7 @@ def get_random_path():
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
-    #random_path_to_exit = generate_random_path(graph, global_game_data.target_node[graph_index], len(graph) - 1)
+    random_path_to_exit = generate_random_path(graph, global_game_data.target_node[graph_index], len(graph) - 1)
 
     #if random_path_to_target is None :
      #   if random_path_to_exit is None : 
@@ -30,8 +30,8 @@ def get_random_path():
     #elif(random_path_to_exit is None) : 
      #   return random_path_to_target
 
-    #random_path = random_path_to_target[:-1] + random_path_to_exit   
-    return random_path_to_target
+    random_path = random_path_to_target[:-1] + random_path_to_exit   
+    return random_path
     #return [1,2]
 
 
@@ -55,14 +55,41 @@ def generate_random_path(graph, start, target):
         neighbors = list(graph[curr_node][1])
         
         valid_neighbors = neighbors[:]
+        last_node_num = len(graph) - 1
+        last_node = graph[last_node_num]
+        
+       
+        # remove the exit node from neighbors if trying to get to target
+        if (last_node_num in valid_neighbors) and (last_node_num != target):
+            valid_neighbors.remove(last_node_num)
+
+        # remove beginning if start is target
+        if 0 in valid_neighbors :
+            valid_neighbors.remove(0)
+
+        # remove visited nodes from neighbors
         for node in path:
             if node in valid_neighbors:
                 valid_neighbors.remove(node)
         
-        if not valid_neighbors:  # No valid neighbors, the path is stuck
-            print("ERROR")
-            return None
-        
+        # No valid neighbors, the path is stuck
+        if not valid_neighbors: 
+            # allow it to backtrack
+            valid_neighbors = neighbors[:]
+            if len(valid_neighbors) != 1:
+                if (last_node_num in valid_neighbors) and (last_node_num != target):
+                    valid_neighbors.remove(last_node_num)
+                if 0 in valid_neighbors :
+                    valid_neighbors.remove(0)
+                if start in valid_neighbors:
+                    valid_neighbors.remove(start)
+            else:
+                print("had to allow ends")
+
+            
+                
+            
+        # randomly choose a neighbor
         next_node = int(random.choice(valid_neighbors))
         path.append(next_node)
         curr_node = path[-1]
