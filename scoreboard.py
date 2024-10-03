@@ -101,19 +101,20 @@ class Scoreboard:
             for player_object in global_game_data.player_objects:
                 if player_object.player_config_data == player_configuration_info:
                     display_element.text = "Distance Traveled: " + str(int(player_object.distance_traveled))
-        for display_element, player_configuration_info in self.player_edges_traveled_display:
-            for player_object in global_game_data.player_objects:
-                if player_object.player_config_data == player_configuration_info:
-                    display_element.text = "Edges Traveled: " + str(int(player_object.edges_traveled))
-
-
         for display_element, player_configuration_info in self.player_excess_distance_display:
             for player_object in global_game_data.player_objects:
                 if player_object.player_config_data == player_configuration_info:
                     display_element.text = "Excess Distance Traveled: " + str(max(0, int(player_object.distance_traveled-self.distance_to_exit)))
 
+    def update_edges_traveled(self):
+        for display_element, player_configuration_info in self.player_edges_traveled_display:
+            for player_object in global_game_data.player_objects:
+                if player_object.player_config_data == player_configuration_info:
+                    display_element.text = "Edges Traveled: " + str(int(player_object.edges_traveled))
     def update_scoreboard(self):
         self.update_elements_locations()
         self.update_paths()
         self.update_distance_to_exit()
         self.update_distance_traveled()
+        self.update_edges_traveled()
+        

@@ -48,7 +48,8 @@ def get_dijkstra_path():
 
 def generate_random_path(graph, start, target):
     path = []
-    path.append(start)
+    if start != 0 :
+        path.append(start)
     curr_node = start
 
     while curr_node != target :
@@ -83,8 +84,6 @@ def generate_random_path(graph, start, target):
                     valid_neighbors.remove(0)
                 if start in valid_neighbors:
                     valid_neighbors.remove(start)
-            else:
-                print("had to allow ends")
 
             
                 
@@ -93,4 +92,5 @@ def generate_random_path(graph, start, target):
         next_node = int(random.choice(valid_neighbors))
         path.append(next_node)
         curr_node = path[-1]
+    
     return path
