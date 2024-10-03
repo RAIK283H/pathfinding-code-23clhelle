@@ -111,6 +111,7 @@ class Scoreboard:
             for player_object in global_game_data.player_objects:
                 if player_object.player_config_data == player_configuration_info:
                     display_element.text = "Edges Traveled: " + str(int(player_object.edges_traveled))
+    
     def update_scoreboard(self):
         self.update_elements_locations()
         self.update_paths()
