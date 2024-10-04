@@ -80,7 +80,6 @@ class Player:
 
 
         nodes = graph_data.graph_data[global_game_data.current_graph_index]
-            #print(nodes)
             
         # calculate edges traveled
         if global_game_data.current_player_index == self.player_index:
@@ -92,19 +91,8 @@ class Player:
                 x_diff = x - self.absolute_x
                 y_diff = y - self.absolute_y
                     
-                '''    
-                # add last edge when it's really close to the end
-                if i == len(nodes) -1 :
-                    if abs(x_diff) <= 5 and abs(y_diff) <= 5: 
-                        if self.edges_traveled < i:
-                            self.edges_traveled = self.edges_traveled + 1
-                            '''
-                                
-                    
                 if x_diff == 0 and y_diff == 0:
                     self.edges_traveled = self.edges_traveled + 1
-                    
-
 
         self.distance_traveled = self.distance_traveled + math.sqrt(math.pow(last_absolute_x-self.absolute_x, 2) + math.pow(last_absolute_y-self.absolute_y, 2))
         self.sprite.visible = (global_game_data.current_player_index == self.player_index)

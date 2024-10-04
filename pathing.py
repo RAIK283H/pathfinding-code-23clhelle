@@ -21,7 +21,6 @@ def get_random_path():
     random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
     random_path_to_exit = generate_random_path(graph, global_game_data.target_node[graph_index], len(graph) - 1)
 
-
     random_path = random_path_to_target[:-1] + random_path_to_exit
     assert(path_is_valid(graph, random_path))   
     return random_path
@@ -74,7 +73,6 @@ def generate_random_path(graph, start, target):
                     valid_neighbors.remove(0)
                 if start in valid_neighbors:
                     valid_neighbors.remove(start)
-
             
         # randomly choose a neighbor
         next_node = int(random.choice(valid_neighbors))
@@ -85,7 +83,6 @@ def generate_random_path(graph, start, target):
 
 def path_is_valid(graph, path):
     for i in range(len(path) - 1):
-        #print(graph[i][1])
         if path[i+1] not in graph[path[i]][1]: #check each node of path
             return False
         
