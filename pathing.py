@@ -52,7 +52,6 @@ def generate_random_path(graph, start, target):
         
         valid_neighbors = neighbors[:]
         last_node_num = len(graph) - 1
-        last_node = graph[last_node_num]
         
        
         # remove the exit node from neighbors if trying to get to target
@@ -79,11 +78,6 @@ def generate_random_path(graph, start, target):
                     valid_neighbors.remove(0)
                 if start in valid_neighbors:
                     valid_neighbors.remove(start)
-            else:
-                print("had to allow ends")
-
-            
-                
             
         # randomly choose a neighbor
         next_node = int(random.choice(valid_neighbors))
