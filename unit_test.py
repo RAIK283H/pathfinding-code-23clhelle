@@ -31,8 +31,7 @@ class TestPathFinding(unittest.TestCase):
             [(200, -400), [1]]
             ]
         path = [1, 2]
-        valid = pathing.path_is_valid(graph, path)
-        assert(valid)
+        assert(pathing.path_is_valid(graph, path))
 
 
 if __name__ == '__main__':
