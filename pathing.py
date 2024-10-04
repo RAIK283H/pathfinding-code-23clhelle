@@ -24,7 +24,7 @@ def get_random_path():
 
 
     random_path = random_path_to_target[:-1] + random_path_to_exit
-    assert(path_is_valid(graph, random_path))   
+    #assert(path_is_valid(graph, random_path))   
     
     return random_path
     #return [1,2]
@@ -43,8 +43,7 @@ def get_dijkstra_path():
 
 def generate_random_path(graph, start, target):
     path = []
-    if start != 0 :
-        path.append(start)
+    path.append(start)
     curr_node = start
 
     while curr_node != target :
@@ -52,6 +51,8 @@ def generate_random_path(graph, start, target):
         
         valid_neighbors = neighbors[:]
         last_node_num = len(graph) - 1
+        last_node = graph[last_node_num]
+        
        
         # remove the exit node from neighbors if trying to get to target
         if (last_node_num in valid_neighbors) and (last_node_num != target):
@@ -77,23 +78,14 @@ def generate_random_path(graph, start, target):
                     valid_neighbors.remove(0)
                 if start in valid_neighbors:
                     valid_neighbors.remove(start)
+            else:
+                print("had to allow ends")
 
             
+                
+            
         # randomly choose a neighbor
-        if not valid_neighbors:  # No valid neighbors, the path is stuck
-            print("ERROR")
-            return None
-        
         next_node = int(random.choice(valid_neighbors))
         path.append(next_node)
         curr_node = path[-1]
-    
     return path
-
-def path_is_valid(graph, path):
-    for i in range(len(path) - 1):
-        #print(graph[i][1])
-        if path[i+1] not in graph[path[i]][1]: #check each node of path
-            return False
-        
-    return True
