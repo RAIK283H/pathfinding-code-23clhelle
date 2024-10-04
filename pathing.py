@@ -25,8 +25,9 @@ def get_random_path():
 
     random_path = random_path_to_target[:-1] + random_path_to_exit
     assert(path_is_valid(graph, random_path))   
+    
     return random_path
-    return[1,2]
+    #return [1,2]
 
 
 def get_dfs_path():
@@ -79,6 +80,10 @@ def generate_random_path(graph, start, target):
 
             
         # randomly choose a neighbor
+        if not valid_neighbors:  # No valid neighbors, the path is stuck
+            print("ERROR")
+            return None
+        
         next_node = int(random.choice(valid_neighbors))
         path.append(next_node)
         curr_node = path[-1]
