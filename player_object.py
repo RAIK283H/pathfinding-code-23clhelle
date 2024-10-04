@@ -79,6 +79,8 @@ class Player:
                 self.current_objective += 1
 
 
+
+
         '''
         nodes = graph_data.graph_data[global_game_data.current_graph_index]
             
@@ -95,7 +97,7 @@ class Player:
                 if x_diff == 0 and y_diff == 0:
                     self.edges_traveled = self.edges_traveled + 1
                     '''
-
+        
         self.distance_traveled = self.distance_traveled + math.sqrt(math.pow(last_absolute_x-self.absolute_x, 2) + math.pow(last_absolute_y-self.absolute_y, 2))
         self.sprite.visible = (global_game_data.current_player_index == self.player_index)
         self.update_location(self.absolute_x, self.absolute_y)

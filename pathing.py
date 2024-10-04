@@ -16,7 +16,7 @@ def get_test_path():
 
 
 def get_random_path():
-    '''
+    
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
@@ -25,7 +25,6 @@ def get_random_path():
     random_path = random_path_to_target[:-1] + random_path_to_exit
     assert(path_is_valid(graph, random_path))   
     return random_path
-    '''
     return[1,2]
 
 
