@@ -107,10 +107,15 @@ class Player:
                 if x_diff == 0 and y_diff == 0:
                     self.edges_traveled = self.edges_traveled + 1
 <<<<<<< HEAD
+<<<<<<< HEAD
                     '''
         
 =======
                     
+=======
+                    
+
+>>>>>>> parent of 6aa5e45 (DONE)
 
 
 >>>>>>> parent of 6aa5e45 (DONE)
