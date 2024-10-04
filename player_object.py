@@ -80,20 +80,19 @@ class Player:
 
         
         nodes = graph_data.graph_data[global_game_data.current_graph_index]
-        
-            
-        for i in range(1, len(nodes)):
-            node = nodes[i]
-            x = node[0][0]
-            y = node[0][1]
-            
-            x_diff = x - self.absolute_x
-            y_diff = y - self.absolute_y
-            
-            
-            
-            if x_diff == 0 and y_diff == 0:
-                self.edges_traveled = self.edges_traveled + 1
+
+        # calculate edges traveled
+        if global_game_data.current_player_index == self.player_index:
+            for i in range(1, len(nodes)):
+                node = nodes[i]
+                x = node[0][0]
+                y = node[0][1]
+
+                x_diff = x - self.absolute_x
+                y_diff = y - self.absolute_y                                
+                    
+                if x_diff == 0 and y_diff == 0:
+                    self.edges_traveled = self.edges_traveled + 1
         
         self.distance_traveled = self.distance_traveled + math.sqrt(math.pow(last_absolute_x-self.absolute_x, 2) + math.pow(last_absolute_y-self.absolute_y, 2))
         self.sprite.visible = (global_game_data.current_player_index == self.player_index)
