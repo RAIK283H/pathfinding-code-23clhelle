@@ -43,7 +43,8 @@ def get_dijkstra_path():
 
 def generate_random_path(graph, start, target):
     path = []
-    path.append(start)
+    if start != 0:
+        path.append(start)
     curr_node = start
 
     while curr_node != target :
