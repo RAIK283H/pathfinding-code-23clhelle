@@ -24,7 +24,7 @@ def get_random_path():
 
 
     random_path = random_path_to_target[:-1] + random_path_to_exit
-    #assert(path_is_valid(graph, random_path))   
+    assert(path_is_valid(graph, random_path))   
     
     return random_path
     #return [1,2]
@@ -84,3 +84,11 @@ def generate_random_path(graph, start, target):
         path.append(next_node)
         curr_node = path[-1]
     return path
+
+def path_is_valid(graph, path):
+    for i in range(len(path) - 1):
+        #print(graph[i][1])
+        if path[i+1] not in graph[path[i]][1]: #check each node of path
+            return False
+        
+    return True
