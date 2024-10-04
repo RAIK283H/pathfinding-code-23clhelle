@@ -87,7 +87,6 @@ def generate_random_path(graph, start, target):
 
 def path_is_valid(graph, path):
     for i in range(len(path) - 1):
-        #print(graph[i][1])
         if path[i+1] not in graph[path[i]][1]: #check each node of path
             return False
         
