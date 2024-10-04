@@ -110,6 +110,7 @@ class Player:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                     '''
         
 =======
@@ -120,6 +121,10 @@ class Player:
                     
 =======
                     
+=======
+                    
+
+>>>>>>> parent of 6aa5e45 (DONE)
 
 >>>>>>> parent of 6aa5e45 (DONE)
 
