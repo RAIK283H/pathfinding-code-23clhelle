@@ -35,7 +35,12 @@ def get_dfs_path():
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
-    return generate_dfs_path(graph, 0, target)
+    
+    dfs_path_to_target = generate_dfs_path(graph, 0, target, path = [])
+    #dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1, dfs_path_to_target)
+
+    dfs_path = dfs_path_to_target
+    return dfs_path
 
 
 def get_bfs_path():
@@ -89,28 +94,31 @@ def generate_random_path(graph, start, target):
         curr_node = path[-1]
     return path
 
-def generate_dfs_path(graph, start, target):
+def generate_dfs_path(graph, start, target, path):
     visited = [False] * (len(graph))
-    path = []
     s = []
     visited[start] = True
     s.append(start)
+    for number in path:
+        visited[number] = True
     while s:
         u = s[-1]
-        print("u = ", u)
-        print("revoved ", s[-1])
+        path.append(s[-1])
         s.remove(s[-1])
         
         for neighbor in graph[u][1]:
             if visited[neighbor] == False:
                 w = neighbor
+                print("neighbor: ", w)
                 s.append(u)
                 visited[w] = True
                 s.append(w)
-                path.append(w)
+                
                 if w == target:
+                    path.remove(0)
+                    path.append(w)
                     return path
-    
+    print("no more s")
     return path
 
 def path_is_valid(graph, path):
