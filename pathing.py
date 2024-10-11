@@ -37,9 +37,9 @@ def get_dfs_path():
     target = global_game_data.target_node[graph_index]
     
     dfs_path_to_target = generate_dfs_path(graph, 0, target, path = [])
-    #dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1, dfs_path_to_target)
+    dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1, dfs_path_to_target)
 
-    dfs_path = dfs_path_to_target
+    dfs_path = dfs_path_to_end
     return dfs_path
 
 
@@ -109,13 +109,12 @@ def generate_dfs_path(graph, start, target, path):
         for neighbor in graph[u][1]:
             if visited[neighbor] == False:
                 w = neighbor
-                print("neighbor: ", w)
                 s.append(u)
                 visited[w] = True
                 s.append(w)
                 
                 if w == target:
-                    path.remove(0)
+                    path.remove(start)
                     path.append(w)
                     return path
     print("no more s")
