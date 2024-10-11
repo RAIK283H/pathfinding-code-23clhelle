@@ -16,7 +16,7 @@ def get_test_path():
 
 
 def get_random_path():
-    
+    '''
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
@@ -27,11 +27,15 @@ def get_random_path():
     assert(path_is_valid(graph, random_path))   
     
     return random_path
-    #return [1,2]
+    '''
+    return [1,2]
 
 
 def get_dfs_path():
-    return [1,2]
+    graph_index = int(global_game_data.current_graph_index)
+    graph = graph_data.graph_data[graph_index]
+    target = global_game_data.target_node[graph_index]
+    return generate_dfs_path(graph, 0, target)
 
 
 def get_bfs_path():
@@ -83,6 +87,30 @@ def generate_random_path(graph, start, target):
         next_node = int(random.choice(valid_neighbors))
         path.append(next_node)
         curr_node = path[-1]
+    return path
+
+def generate_dfs_path(graph, start, target):
+    visited = [False] * (len(graph))
+    path = []
+    s = []
+    visited[start] = True
+    s.append(start)
+    while s:
+        u = s[-1]
+        print("u = ", u)
+        print("revoved ", s[-1])
+        s.remove(s[-1])
+        
+        for neighbor in graph[u][1]:
+            if visited[neighbor] == False:
+                w = neighbor
+                s.append(u)
+                visited[w] = True
+                s.append(w)
+                path.append(w)
+                if w == target:
+                    return path
+    
     return path
 
 def path_is_valid(graph, path):
