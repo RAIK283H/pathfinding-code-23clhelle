@@ -54,7 +54,7 @@ def get_bfs_path():
     bfs_path_to_end = generate_bfs_path(graph, target, len(graph) - 1)
 
     bfs_path = bfs_path_to_target + bfs_path_to_end[1:]
-    return bfs_path_to_target
+    return bfs_path
 
 
 def get_dijkstra_path():
@@ -109,8 +109,7 @@ def generate_random_path(graph, start, target):
 
 def generate_dfs_path(graph, start, target):
     visited = [False] * len(graph)
-    s = []
-    s.append((start, [start]))
+    s = [((start, [start]))]
 
     while s:
         # Get the current node and the path to it
