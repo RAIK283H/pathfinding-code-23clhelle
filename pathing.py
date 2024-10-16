@@ -46,7 +46,15 @@ def get_dfs_path():
 
 
 def get_bfs_path():
-    return [1,2]
+    graph_index = int(global_game_data.current_graph_index)
+    graph = graph_data.graph_data[graph_index]
+    target = global_game_data.target_node[graph_index]
+    
+    bfs_path_to_target = generate_bfs_path(graph, 0, target)
+    bfs_path_to_end = generate_bfs_path(graph, target, len(graph) - 1)
+
+    bfs_path = bfs_path_to_target + bfs_path_to_end[1:]
+    return bfs_path_to_target
 
 
 def get_dijkstra_path():
@@ -98,32 +106,6 @@ def generate_random_path(graph, start, target):
         curr_node = path[-1]
     return path
 
-'''
-def generate_dfs_path(graph, start, target):
-    visited = [False] * (len(graph))
-    s = []
-    path = []
-    visited[start] = True
-    s.append(start)
-    while s:
-        u = s[-1]
-        path.append(u)
-        s.remove(u)
-
-        if u == target:
-            path.remove(start)
-            return path
-        
-        neighbors =  graph[u][1]
-        for neighbor in neighbors:
-            if visited[neighbor] == False:
-                s.append(u)
-                visited[neighbor] = True
-                s.append(neighbor)
-                
-                
-    print(path)
-'''
 
 def generate_dfs_path(graph, start, target):
     visited = [False] * len(graph)
@@ -148,6 +130,23 @@ def generate_dfs_path(graph, start, target):
                     s.append((neighbor, current_path + [neighbor]))
 
     return None
+
+def generate_bfs_path(graph, start, target):
+    visited = [False] * len(graph)
+    
+    Q = [(start, [start])]
+
+    while(Q is not []):
+        u, curr_path = Q.pop(0)
+
+        # if reached the target, return the path
+        if u == target:
+            return curr_path
+
+        for neighbor in graph[u][1]:
+            if visited[neighbor] == False:
+                visited[neighbor] = True
+                Q.append((neighbor, curr_path + [neighbor]))
 
 
 
