@@ -16,18 +16,20 @@ def get_test_path():
 
 
 def get_random_path():
-    '''
+    
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
+
+    '''
     random_path_to_target = generate_random_path(graph, 0, global_game_data.target_node[graph_index])
     random_path_to_exit = generate_random_path(graph, global_game_data.target_node[graph_index], len(graph) - 1)
-
 
     random_path = random_path_to_target[:-1] + random_path_to_exit
     assert(path_is_valid(graph, random_path))   
     
     return random_path
     '''
+
     return [1,2]
 
 
@@ -36,10 +38,10 @@ def get_dfs_path():
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
     
-    dfs_path_to_target = generate_dfs_path(graph, 0, target, path = [])
-    dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1, dfs_path_to_target)
+    dfs_path_to_target = generate_dfs_path(graph, 0, target)
+    dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1)
 
-    dfs_path = dfs_path_to_end
+    dfs_path = dfs_path_to_target + dfs_path_to_end[1:]
     return dfs_path
 
 
@@ -80,6 +82,7 @@ def generate_random_path(graph, start, target):
         if not valid_neighbors: 
             # allow it to backtrack
             valid_neighbors = neighbors[:]
+            '''
             if len(valid_neighbors) != 1:
                 if (last_node_num in valid_neighbors) and (last_node_num != target):
                     valid_neighbors.remove(last_node_num)
@@ -87,6 +90,7 @@ def generate_random_path(graph, start, target):
                     valid_neighbors.remove(0)
                 if start in valid_neighbors:
                     valid_neighbors.remove(start)
+                    '''
             
         # randomly choose a neighbor
         next_node = int(random.choice(valid_neighbors))
@@ -94,31 +98,58 @@ def generate_random_path(graph, start, target):
         curr_node = path[-1]
     return path
 
-def generate_dfs_path(graph, start, target, path):
+'''
+def generate_dfs_path(graph, start, target):
     visited = [False] * (len(graph))
     s = []
+    path = []
     visited[start] = True
     s.append(start)
-    for number in path:
-        visited[number] = True
     while s:
         u = s[-1]
-        path.append(s[-1])
-        s.remove(s[-1])
+        path.append(u)
+        s.remove(u)
+
+        if u == target:
+            path.remove(start)
+            return path
         
-        for neighbor in graph[u][1]:
+        neighbors =  graph[u][1]
+        for neighbor in neighbors:
             if visited[neighbor] == False:
-                w = neighbor
                 s.append(u)
-                visited[w] = True
-                s.append(w)
+                visited[neighbor] = True
+                s.append(neighbor)
                 
-                if w == target:
-                    path.remove(start)
-                    path.append(w)
-                    return path
-    print("no more s")
-    return path
+                
+    print(path)
+'''
+
+def generate_dfs_path(graph, start, target):
+    visited = [False] * len(graph)
+    s = []
+    s.append((start, [start]))
+
+    while s:
+        # Get the current node and the path to it
+        u, current_path = s.pop()
+        
+        # if reached the target, return the path
+        if u == target:
+            return current_path
+        
+        if not visited[u]:
+            visited[u] = True
+            
+            # check neighbors
+            neighbors = graph[u][1]
+            for neighbor in neighbors:
+                if not visited[neighbor]:
+                    s.append((neighbor, current_path + [neighbor]))
+
+    return None
+
+
 
 def path_is_valid(graph, path):
     for i in range(len(path) - 1):
