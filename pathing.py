@@ -34,6 +34,7 @@ def get_random_path():
 
 
 def get_dfs_path():
+    '''
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
@@ -52,9 +53,12 @@ def get_dfs_path():
         assert(next in graph[i][1])
 
     return dfs_path
+    '''
+    return [1,2]
 
 
 def get_bfs_path():
+    '''
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
@@ -64,6 +68,8 @@ def get_bfs_path():
 
     bfs_path = bfs_path_to_target + bfs_path_to_end[1:]
     return bfs_path
+    '''
+    return [1,2]
 
 
 def get_dijkstra_path():
