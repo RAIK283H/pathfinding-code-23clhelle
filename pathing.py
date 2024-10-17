@@ -115,6 +115,32 @@ def generate_random_path(graph, start, target):
         curr_node = path[-1]
     return path
 
+'''
+def generate_dfs_path(graph, start, target):
+    visited = [False] * (len(graph))
+    s = []
+    path = []
+    visited[start] = True
+    s.append(start)
+    while s:
+        u = s[-1]
+        path.append(u)
+        s.remove(u)
+
+        if u == target:
+            path.remove(start)
+            return path
+        
+        neighbors =  graph[u][1]
+        for neighbor in neighbors:
+            if visited[neighbor] == False:
+                s.append(u)
+                visited[neighbor] = True
+                s.append(neighbor)
+                
+                
+    print(path)
+'''
 
 def generate_dfs_path(graph, start, target):
     visited = [False] * len(graph)
