@@ -42,6 +42,15 @@ def get_dfs_path():
     dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1)
 
     dfs_path = dfs_path_to_target + dfs_path_to_end[1:]
+
+    assert(target in dfs_path)
+    assert(dfs_path[-1] == len(graph) - 1)
+
+    for i in range(len(dfs_path) - 2):
+        next = i + 1
+        print(graph[i][1])
+        assert(next in graph[i][1])
+
     return dfs_path
 
 
@@ -128,7 +137,7 @@ def generate_dfs_path(graph, start, target):
                 if not visited[neighbor]:
                     s.append((neighbor, current_path + [neighbor]))
 
-    return None
+    return [1]
 
 def generate_bfs_path(graph, start, target):
     visited = [False] * len(graph)
@@ -146,6 +155,7 @@ def generate_bfs_path(graph, start, target):
             if visited[neighbor] == False:
                 visited[neighbor] = True
                 Q.append((neighbor, curr_path + [neighbor]))
+    return[1]
 
 
 
