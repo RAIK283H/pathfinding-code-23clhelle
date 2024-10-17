@@ -1,6 +1,7 @@
 import graph_data
 import global_game_data
 from numpy import random
+from collections import deque
 
 def set_current_graph_paths():
     global_game_data.graph_paths.clear()
@@ -38,6 +39,7 @@ def get_dfs_path():
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
+    print(graph)
     
     dfs_path_to_target = generate_dfs_path(graph, 0, target)
     dfs_path_to_end = generate_dfs_path(graph, target, len(graph) - 1)
@@ -55,6 +57,7 @@ def get_dfs_path():
     return dfs_path
     '''
     return [1,2]
+    
 
 
 def get_bfs_path():
@@ -171,6 +174,7 @@ def generate_dfs_path(graph, start, target):
 
     return [1]
 
+
 def generate_bfs_path(graph, start, target):
     visited = [False] * len(graph)
     
@@ -188,7 +192,7 @@ def generate_bfs_path(graph, start, target):
                 visited[neighbor] = True
                 Q.append((neighbor, curr_path + [neighbor]))
     return[1]
-
+    
 
 
 def path_is_valid(graph, path):
