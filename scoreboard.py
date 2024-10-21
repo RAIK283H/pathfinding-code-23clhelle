@@ -12,7 +12,6 @@ class Scoreboard:
     player_excess_distance_display = []
     player_path_display = []
     player_edges_traveled_display = []
-    min_distance = 0
 
     def __init__(self, batch, group):
 
@@ -29,7 +28,8 @@ class Scoreboard:
 
         self.winner_label = pyglet.text.Label('Winner : ', x=0, y=0,
                                                         font_name='Arial', font_size=self.font_size, batch=batch, group=group)
-        self.winner = 10000000
+        self.min_distance = 10000000
+        self.winner = ""
 
         for index, player in enumerate(config_data.player_data):
             player_name_label = pyglet.text.Label(str(index + 1) + " " + player[0],
@@ -112,9 +112,12 @@ class Scoreboard:
 
     def update_winner(self):
         for player_object in global_game_data.player_objects:
-            if player_object.distance_traveled < self.min_distance :
-                self.winner = int(player_object.distance_traveled)
-        self.winner_label.text = 'Winner: ' + "{0:.0f}".format(self.winner)
+            excess = max(0, int(player_object.distance_traveled-self.distance_to_exit))
+            if excess > 0:
+                if player_object.distance_traveled < self.min_distance :
+                    self.winner = self.player_name_display[player_object.player_index][1][0]
+        self.winner_label.text = 'Winner: ' + self.winner
+        
 
 
 
