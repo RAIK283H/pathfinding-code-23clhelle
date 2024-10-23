@@ -3,6 +3,7 @@ import global_game_data
 from numpy import random
 from collections import deque
 
+
 def set_current_graph_paths():
     global_game_data.graph_paths.clear()
     global_game_data.graph_paths.append(get_test_path())
@@ -60,7 +61,7 @@ def get_dfs_path():
 
 
 def get_bfs_path():
-    '''
+    
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
@@ -69,9 +70,12 @@ def get_bfs_path():
     bfs_path_to_end = generate_bfs_path(graph, target, len(graph) - 1)
 
     bfs_path = bfs_path_to_target + bfs_path_to_end[1:]
+
+    assert(target in bfs_path, "path doesn't hit target")
+    assert(bfs_path[-1] == len(graph) - 1, "path doesn't stop at end")
+
     return bfs_path
-    '''
-    return [1,2]
+    
 
 
 def get_dijkstra_path():
@@ -160,21 +164,32 @@ def generate_dfs_path(graph, start, target, visited):
 
 def generate_bfs_path(graph, start, target):
     visited = [False] * len(graph)
-    
-    Q = [(start, [start])]
+    q = deque([start])
+    path = []
 
-    while(Q is not []):
-        u, curr_path = Q.pop(0)
-
+    while q:
+        u = q.popleft()
+        
         # if reached the target, return the path
         if u == target:
-            return curr_path
+            path.append(u)
+            if 0 in path:
+                path.remove(0)
+            return path
+        
+        if not visited[u]:
+            visited[u] = True
+            
+            if u not in path:
+                path.append(u)
 
-        for neighbor in graph[u][1]:
-            if visited[neighbor] == False:
-                visited[neighbor] = True
-                Q.append((neighbor, curr_path + [neighbor]))
-    return[1]
+            neighbors = graph[u][1]
+            for neighbor in neighbors:
+                if not visited[neighbor]:
+                    q.append(neighbor)
+
+    return path
+
     
 
 
