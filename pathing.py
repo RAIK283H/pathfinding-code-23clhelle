@@ -45,19 +45,17 @@ def get_dfs_path():
 
     dfs_path = dfs_path_to_target + dfs_path_to_end[1:]
 
-    #assert(target in dfs_path)
-    #assert(dfs_path[-1] == len(graph) - 1)
+    assert(target in dfs_path, "path doesn't hit target")
+    assert(dfs_path[-1] == len(graph) - 1, "path doesn't stop at end")
 
-    return dfs_path
-
-'''
+    '''
     for i in range(len(dfs_path) - 2):
         next = i + 1
         assert(next in graph[i][1])
+    '''
 
     return dfs_path
-    '''
-    #return [1,2]
+
 
 
 
