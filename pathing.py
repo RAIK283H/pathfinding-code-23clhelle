@@ -210,8 +210,8 @@ def generate_dfs_path(graph, start, target, visited):
         
         # if reached the target, return the path
         if u == target:
-        
             path.append(u)
+            path.remove(start)
             print(f"Target {target} found!")
             return path
         
