@@ -154,38 +154,8 @@ def generate_dfs_path(graph, start, target):
                 visited[neighbor] = True
                 s.append(neighbor)
 
+
 '''
-def generate_dfs_path(graph, start, target, visited):
-    s = [start]  # Stack for DFS
-    path = []    # Store the path taken
-
-    while s:
-        u = s.pop()
-
-        # If we have reached the target, return the path
-        if u == target:
-            path.append(u)  # Add the target to the path
-            return path  # Return the full path when the target is found
-
-        if not visited[u]:
-            visited[u] = True  # Mark the node as visited
-            path.append(u)  # Add to the current path
-
-            # Check all neighbors of the current node
-            neighbors = graph[u][1]
-            for neighbor in neighbors:
-                if not visited[neighbor]:
-                    s.append(neighbor)  # Only add unvisited neighbors to the stack
-                    break  # Explore only one neighbor at a time
-        else:
-            # Backtrack by removing the last node added to the path
-            path.pop()
-
-    print("No path found from", start, "to", target)
-    return []  # Return an empty list if no path is found
-
-
-
 
 
 '''    
@@ -228,7 +198,7 @@ def generate_dfs_path(graph, start, target, visited):
         # If no path is found, return an empty list
         print(f"No valid path found from {start} to {target}")
         return []
-'''
+
 '''
 def generate_dfs_path(graph, start, target, visited):
     
@@ -240,25 +210,26 @@ def generate_dfs_path(graph, start, target, visited):
         
         # if reached the target, return the path
         if u == target:
+        
             path.append(u)
             print(f"Target {target} found!")
             return path
         
         if not visited[u]:
             visited[u] = True
+            path.append(u)
 
             neighbors = graph[u][1]
             for neighbor in neighbors:
                 if not visited[neighbor]:
                     s.append(neighbor)
-                    path.append(neighbor)
                     break
         else:
             # Backtracking
             path.pop()
 
     return path
-'''
+
 
 
 def generate_bfs_path(graph, start, target):
