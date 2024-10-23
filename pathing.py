@@ -138,6 +138,7 @@ def generate_dfs_path(graph, start, target, visited):
         
         # if reached the target, return the path
         if u == target:
+            print("SUCCESS")
             path.append(u)
             if 0 in path:
                 path.remove(0)
@@ -154,41 +155,38 @@ def generate_dfs_path(graph, start, target, visited):
                 if not visited[neighbor]:
                     s.append(neighbor)
                     break
-        else:
+        #else:
             # Backtracking
-            path.pop()
+            #path.pop()
 
     return path
 
 
 
 def generate_bfs_path(graph, start, target):
-    visited = [False] * len(graph)
-    q = deque([start])
-    path = []
+    visited = [False] * len(graph) 
+    q = deque([(start, [start])])
 
     while q:
-        u = q.popleft()
+        u, path = q.popleft() 
         
-        # if reached the target, return the path
+        # If reached the target, return the path
         if u == target:
-            path.append(u)
             if 0 in path:
                 path.remove(0)
             return path
         
+       
         if not visited[u]:
             visited[u] = True
             
-            if u not in path:
-                path.append(u)
-
+            # Explore all neighbors of the current node
             neighbors = graph[u][1]
             for neighbor in neighbors:
                 if not visited[neighbor]:
-                    q.append(neighbor)
+                    q.append((neighbor, path + [neighbor]))
 
-    return path
+    return []
 
     
 
