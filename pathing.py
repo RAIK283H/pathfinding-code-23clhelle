@@ -163,9 +163,9 @@ def generate_dfs_path(graph, start, target, visited):
 '''
 
 def generate_dfs_path(graph, start, target):
-    visited = [False] * len(graph)  # Keep track of visited nodes
-    s = [start]  # Use a stack for DFS traversal
-    path = []  # List to store the valid path
+    visited = [False] * len(graph)
+    s = [start] 
+    path = []
 
     while s:
         u = s.pop()
