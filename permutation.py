@@ -31,40 +31,39 @@ def determine_sjt(n):
     for i in range(n):
         permutations[i] = i + 1
   
-    # Printing the first permutation 
-    for i in range(n): 
-        print(permutations[i], end='') 
-    print("") 
-  
     directions = [RIGHT] * n
   
     factorial = 1
     for i in range(1, n + 1): 
         factorial = factorial * i 
 
-    # for generating permutations in the order. 
+    all_permutations = []
+    all_permutations.append(permutations[:]) 
+
+    # generating permutations 
     for i in range(1, factorial): 
         mobile = get_mobile(permutations, directions, n) 
         position = searchArr(permutations, n, mobile) 
     
-        # swapping the elements according to 
-        # the direction i.e. dir[] 
+        # swapping the elements according to direction
         if directions[permutations[position - 1] - 1] == RIGHT: 
             permutations[position - 1], permutations[position - 2] = permutations[position - 2], permutations[position - 1] 
     
         elif directions[permutations[position - 1] - 1] == LEFT: 
             permutations[position], permutations[position - 1] = permutations[position - 1], permutations[position] 
     
-        # changing the directions for elements 
-        # greater than largest mobile integer 
+        # changing directions
         for i in range(n): 
             if permutations[i] > mobile: 
                 if directions[permutations[i] - 1] == LEFT: 
                     directions[permutations[i] - 1] = RIGHT 
                 elif directions[permutations[i] - 1] == RIGHT: 
                     directions[permutations[i] - 1] = LEFT 
-    
-        for i in range(n): 
-            print(permutations[i], end='') 
-        print("") 
+
+        all_permutations.append(permutations[:])
+
+    if not all_permutations:
+        return -1
+    else:
+        return all_permutations
 

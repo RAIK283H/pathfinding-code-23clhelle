@@ -3,4 +3,8 @@ import permutation
 
 graph = graph_data.graph_data[0]
 
-permutation.determine_sjt(len(graph))
+permutations = permutation.determine_sjt(len(graph))
+
+for perm in permutations:
+    str_perm = ''.join(str(num) for num in perm)
+    print(str_perm)
