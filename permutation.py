@@ -1,69 +1,54 @@
 LEFT = True
 RIGHT = False
-  
 
 def searchArr(a, n, mobile): 
     for i in range(n): 
         if a[i] == mobile: 
-            return i + 1
+            return i
     
 def get_mobile(arr, dir, n):
-    pre_mobile = 0
-    curr_mobile = 0
+    pre_mobile = -1
+    curr_mobile = -1
     for i in range(n):
-        if dir[arr[i] - 1] == RIGHT and i != 0:
+        if dir[arr[i]] == RIGHT and i != 0:
             if arr[i] > arr[i - 1] and arr[i] > pre_mobile:
                 curr_mobile = arr[i]
                 pre_mobile = curr_mobile
-        
-        if dir[arr[i] - 1] == LEFT and i != n - 1:
+        elif dir[arr[i]] == LEFT and i != n - 1:
             if arr[i] > arr[i + 1] and arr[i] > pre_mobile:
                 curr_mobile = arr[i]
                 pre_mobile = curr_mobile
     
-    if curr_mobile == 0 and pre_mobile == 0:
-        return 0
-    else:
-        return curr_mobile
+    return curr_mobile if curr_mobile != -1 else 0
 
 def determine_sjt(n):
-    permutations = [0] * n
-    for i in range(n):
-        permutations[i] = i + 1
-  
+    permutations = list(range(n))
     directions = [RIGHT] * n
   
     factorial = 1
     for i in range(1, n + 1): 
-        factorial = factorial * i 
+        factorial *= i 
 
-    all_permutations = []
-    all_permutations.append(permutations[:]) 
+    all_permutations = [permutations[:]]
 
-    # generating permutations 
-    for i in range(1, factorial): 
+    for _ in range(1, factorial): 
         mobile = get_mobile(permutations, directions, n) 
-        position = searchArr(permutations, n, mobile) 
+        if mobile == 0:
+            break
+        
+        position = searchArr(permutations, n, mobile)
     
-        # swapping the elements according to direction
-        if directions[permutations[position - 1] - 1] == RIGHT: 
-            permutations[position - 1], permutations[position - 2] = permutations[position - 2], permutations[position - 1] 
+        # Swap based on direction
+        if directions[permutations[position]] == RIGHT:
+            permutations[position], permutations[position - 1] = permutations[position - 1], permutations[position]
+        elif directions[permutations[position]] == LEFT:
+            permutations[position], permutations[position + 1] = permutations[position + 1], permutations[position]
     
-        elif directions[permutations[position - 1] - 1] == LEFT: 
-            permutations[position], permutations[position - 1] = permutations[position - 1], permutations[position] 
-    
-        # changing directions
-        for i in range(n): 
-            if permutations[i] > mobile: 
-                if directions[permutations[i] - 1] == LEFT: 
-                    directions[permutations[i] - 1] = RIGHT 
-                elif directions[permutations[i] - 1] == RIGHT: 
-                    directions[permutations[i] - 1] = LEFT 
+        # Change directions for elements greater than the mobile element
+        for i in range(n):
+            if permutations[i] > mobile:
+                directions[permutations[i]] = not directions[permutations[i]]
 
         all_permutations.append(permutations[:])
 
-    if not all_permutations:
-        return -1
-    else:
-        return all_permutations
-
+    return all_permutations

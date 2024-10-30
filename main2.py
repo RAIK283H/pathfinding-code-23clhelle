@@ -24,9 +24,11 @@ def is_hamiltonian_cycle(graph, path):
 
 def check_for_hamiltonian(graph):
     result = False
-    all_permutations = permutation.determine_sjt(len(graph) - 2)
+    all_permutations = permutation.determine_sjt(len(graph) - 1)
     for perm in all_permutations:
+        perm.remove(0)
         perm.append(1)
+        print(perm)
         if is_hamiltonian_cycle(graph, perm):
             perm.pop()
             print(perm)

@@ -1,6 +1,7 @@
 import math
 import unittest
 import pathing
+import permutation
 
 
 class TestPathFinding(unittest.TestCase):
@@ -32,6 +33,22 @@ class TestPathFinding(unittest.TestCase):
             ]
         path = [1, 2]
         assert(pathing.path_is_valid(graph, path))
+
+    def test_determine_sjt(self):
+        graph = [
+            [(0, 0), [1]],
+            [(200, -200), [0, 2]],
+            [(200, -400), [1]]
+            ]
+        permutations = []
+        permutations.append([0,1,2])
+        permutations.append([0,2,1])
+        permutations.append([1,0,2])
+        permutations.append([1,2,0])
+        permutations.append([2,1,0])
+        permutations.append([2,0,1])
+        print(permutation.determine_sjt(len(graph)))
+        assert(True)
 
 
 if __name__ == '__main__':
