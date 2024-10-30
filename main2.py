@@ -23,25 +23,28 @@ def is_hamiltonian_cycle(graph, path):
     return True
 
 def check_for_hamiltonian(graph):
-    result = False
     all_permutations = permutation.determine_sjt(len(graph) - 1)
+    cycles = []
     for perm in all_permutations:
+        
         perm.remove(0)
         perm.append(1)
-        print(perm)
         if is_hamiltonian_cycle(graph, perm):
             perm.pop()
-            print(perm)
-            result = True
+            if perm not in cycles:
+                cycles.append(perm)
 
-    return result
+    return cycles
 
 for graph_index in range(len(graph_data.graph_data) - 1):
     graph = graph_data.graph_data[graph_index]
     print("Graph Index: ", graph_index)
-    is_ham = check_for_hamiltonian(graph)
+    cycles = check_for_hamiltonian(graph)
         
-    if not is_ham:
+    if not cycles:
         print(-1)
+    else:
+        for perm in cycles:
+            print(perm)
     
     print("")
