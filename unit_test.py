@@ -47,8 +47,11 @@ class TestPathFinding(unittest.TestCase):
         permutations.append([1,2,0])
         permutations.append([2,1,0])
         permutations.append([2,0,1])
-        print(permutation.determine_sjt(len(graph)))
-        assert(True)
+        result = permutation.determine_sjt(len(graph))
+        for perm in permutations:
+            assert(perm in result, "{perm} was not in the resulting list")
+        assert(len(permutations) == len(result), "the permutaion list lenghths are not equal")
+        
 
 
 if __name__ == '__main__':

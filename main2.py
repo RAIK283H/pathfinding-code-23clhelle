@@ -26,7 +26,6 @@ def check_for_hamiltonian(graph):
     all_permutations = permutation.determine_sjt(len(graph) - 1)
     cycles = []
     for perm in all_permutations:
-        
         perm.remove(0)
         perm.append(1)
         if is_hamiltonian_cycle(graph, perm):
