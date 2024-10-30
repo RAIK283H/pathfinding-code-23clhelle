@@ -22,6 +22,12 @@ graph_data = [
         [(50, -300), [1, 3]],
         [(200, -500), [2]]
     ],
+    [
+        [(0, 0), [1, 3]],       # Node 0 is connected to Node 1 and Node 3
+        [(200, 0), [0, 2]],     # Node 1 is connected to Node 0 and Node 2
+        [(200, -200), [1, 3]],  # Node 2 is connected to Node 1 and Node 3
+        [(0, -200), [0, 2]]     # Node 3 is connected to Node 0 and Node 2
+    ],
     '''
     [
         [(900, 45), [17, 21, 22]],
