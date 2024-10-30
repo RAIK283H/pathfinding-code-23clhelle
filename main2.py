@@ -33,14 +33,17 @@ def check_for_hamiltonian(graph):
             if perm not in cycles:
                 cycles.append(perm)
 
-    return cycles
+    if cycles:
+        return cycles
+    else:
+        return -1
 
 for graph_index in range(len(graph_data.graph_data) - 1):
     graph = graph_data.graph_data[graph_index]
     print("Graph Index: ", graph_index)
     cycles = check_for_hamiltonian(graph)
         
-    if not cycles:
+    if cycles == -1:
         print(-1)
     else:
         for perm in cycles:

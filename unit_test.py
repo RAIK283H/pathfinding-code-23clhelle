@@ -2,6 +2,7 @@ import math
 import unittest
 import pathing
 import permutation
+import main2
 
 
 class TestPathFinding(unittest.TestCase):
@@ -51,6 +52,46 @@ class TestPathFinding(unittest.TestCase):
         for perm in permutations:
             assert(perm in result, "{perm} was not in the resulting list")
         assert(len(permutations) == len(result), "the permutaion list lenghths are not equal")
+
+    def test_determine_sjt_length(self):
+        graph = [
+            [(0, 0), [1]],
+            [(200, -200), [0, 2]],
+            [(200, -400), [1]]
+            ]
+        permutations = []
+        permutations.append([0,1,2])
+        permutations.append([0,2,1])
+        permutations.append([1,0,2])
+        permutations.append([1,2,0])
+        permutations.append([2,1,0])
+        permutations.append([2,0,1])
+        result = permutation.determine_sjt(len(graph))
+        assert(len(permutations) == len(result), "the permutaion list lenghths are not equal")
+
+    def test_check_for_hamiltonian(self):
+        graph = [
+            [(0, 0), [1]],
+            [(50, -200), [0, 2, 3]],
+            [(50, -300), [1, 3]],
+            [(200, -500), [1, 2, 4]],
+            [(300, -700), [3]]
+        ]
+        cycles = [[1,2,3], [1,3,2]]
+        result = main2.check_for_hamiltonian(graph)
+        for perm in cycles:
+            assert(perm in result, "{perm} was not in the list of hamiltonian cycles")
+    
+    def test_check_for_hamiltonian_false(self):
+        graph = [
+            [(0, 0), [1]],
+            [(50, -200), [0, 2]],
+            [(50, -300), [1, 3]],
+            [(200, -500), [2]]
+        ]
+        result = main2.check_for_hamiltonian(graph)
+        assert(result == -1, "there must have been a hamiltonian cycle found even though there wasn't supposed to be")
+
         
 
 
