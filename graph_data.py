@@ -23,10 +23,11 @@ graph_data = [
         [(200, -500), [2]]
     ],
     [
-        [(0, 0), [1, 3]],       # Node 0 is connected to Node 1 and Node 3
-        [(200, 0), [0, 2]],     # Node 1 is connected to Node 0 and Node 2
-        [(200, -200), [1, 3]],  # Node 2 is connected to Node 1 and Node 3
-        [(0, -200), [0, 2]]     # Node 3 is connected to Node 0 and Node 2
+        [(0, 0), [1]],
+        [(50, -200), [0, 2, 3]],
+        [(50, -300), [1, 3]],
+        [(200, -500), [1, 2, 4]],
+        [(300, -700), [3]]
     ],
     '''
     [
@@ -178,6 +179,7 @@ graph_data = [
 test_path = [
     [1, 2],
     [1, 2, 3],
+    [1, 2, 3, 4],
     [22, 3, 11, 17, 18, 23],
     [1, 5, 6, 10, 11, 15],
     [1, 2, 5, 8, 9, 10],
