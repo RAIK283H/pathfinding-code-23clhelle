@@ -37,8 +37,6 @@ def get_dfs_path():
     graph_index = int(global_game_data.current_graph_index)
     graph = graph_data.graph_data[graph_index]
     target = global_game_data.target_node[graph_index]
-
-    visited = [False] * len(graph)
     
     dfs_path_to_target = generate_dfs_path(graph, 0, target)
 
@@ -128,40 +126,6 @@ def generate_random_path(graph, start, target):
         curr_node = path[-1]
     return path
 
-'''
-def generate_dfs_path(graph, start, target, visited):
-    
-    s = [(start)]
-    path = [(start)]
-
-    while s:
-        u = s.pop()
-        
-        # if reached the target, return the path
-        if u == target:
-            path.append(u)
-            if 0 in path:
-                path.remove(0)
-            return path
-        
-        if not visited[u]:
-            visited[u] = True
-            
-            if u not in path:
-                path.append(u)
-
-            neighbors = graph[u][1]
-            for neighbor in neighbors:
-                if not visited[neighbor]:
-                    s.append(neighbor)
-                    break
-        if all(visited[n] for n in neighbors):
-            # Backtracking
-            path.pop()
-
-    return path
-'''
-
 def generate_dfs_path(graph, start, target):
     visited = [False] * len(graph)
     s = [start] 
@@ -192,9 +156,6 @@ def generate_dfs_path(graph, start, target):
             path.pop()
 
     return []
-
-
-
 
 
 def generate_bfs_path(graph, start, target):
