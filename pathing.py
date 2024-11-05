@@ -78,6 +78,11 @@ def get_bfs_path():
 
 
 def get_dijkstra_path():
+    graph_index = int(global_game_data.current_graph_index)
+    graph = graph_data.graph_data[graph_index]
+    target = global_game_data.target_node[graph_index]
+    
+    dijkstra_path_to_target = generate_dijkstra_path(graph, 0, target)
     return [1,2]
 
 def generate_random_path(graph, start, target):
@@ -183,7 +188,15 @@ def generate_bfs_path(graph, start, target):
 
     return []
 
-    
+def generate_dijkstra_path(graph, start, target):
+    new_graph = {}
+    for index in range(len(graph)):
+        new_graph[index] = {}
+        for neighbor in graph[index][1]:
+            new_graph[index][neighbor] = float('inf')
+
+    print(new_graph)
+    return [1,2]
 
 
 def path_is_valid(graph, path):
