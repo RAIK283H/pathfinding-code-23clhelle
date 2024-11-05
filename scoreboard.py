@@ -17,7 +17,7 @@ class Scoreboard:
 
         self.batch = batch
         self.group = group
-        self.stat_height = 32
+        self.stat_height = 25
         self.stat_width = 400
         self.number_of_stats = 5
         self.base_height_offset = 20
