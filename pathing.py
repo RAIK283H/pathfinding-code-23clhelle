@@ -2,6 +2,8 @@ import graph_data
 import global_game_data
 from numpy import random
 from collections import deque
+import heapq
+import math
 
 
 def set_current_graph_paths():
@@ -188,14 +190,44 @@ def generate_bfs_path(graph, start, target):
 
     return []
 
-def generate_dijkstra_path(graph, start, target):
-    new_graph = {}
-    for index in range(len(graph)):
-        new_graph[index] = {}
-        for neighbor in graph[index][1]:
-            new_graph[index][neighbor] = float('inf')
+def calculate_distance(graph, start, end):
+    start_coord = graph[start][0]
+    end_coord = graph[end][0]
 
-    print(new_graph)
+    coords = zip(start_coord, end_coord)
+
+    total = 0 
+    for x, y in coords:
+        total += (x - y)**2
+    distance = math.sqrt(total)
+
+    print(distance)
+    return distance
+
+def generate_dijkstra_path(graph, start, target):
+    distances = {start: 0}
+    for i in range(len(graph)):
+        distances[i] = float("inf")
+
+    solved = [False] * (len(graph) - 1)
+
+    distances[start] = 0
+
+    heap = [(start, 0)]
+    heapq.heapify(heap)
+    
+    while heap:
+        curr_node, curr_distance = heapq.heappop(heap)
+        solved[curr_node] = True
+
+        for neighbor in graph[curr_node][1]:
+            distance_to_neighbor = calculate_distance(graph, curr_node, neighbor)
+            alt = curr_distance + distance_to_neighbor
+            dis = distances[neighbor]
+            if alt < dis:
+                print(dis)
+
+
     return [1,2]
 
 
