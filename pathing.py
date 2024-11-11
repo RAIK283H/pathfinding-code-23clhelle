@@ -4,6 +4,7 @@ from numpy import random
 from collections import deque
 import heapq
 import math
+import node
 
 
 def set_current_graph_paths():
@@ -190,45 +191,42 @@ def generate_bfs_path(graph, start, target):
 
     return []
 
-def calculate_distance(graph, start, end):
-    start_coord = graph[start][0]
-    end_coord = graph[end][0]
-
-    coords = zip(start_coord, end_coord)
-
-    total = 0 
-    for x, y in coords:
-        total += (x - y)**2
-    distance = math.sqrt(total)
-
-    print(distance)
-    return distance
-
 def generate_dijkstra_path(graph, start, target):
-    distances = {start: 0}
-    for i in range(len(graph)):
-        distances[i] = float("inf")
-
-    solved = [False] * (len(graph) - 1)
-
+    distances = {i: float("inf") for i in range(len(graph))}
     distances[start] = 0
+    parent = [-1] * len(graph)
+    solved = [False] * len(graph)
 
-    heap = [(start, 0)]
+    begin = node.Node(graph, start)
+
+    heap = [(0, str(begin.index))]
     heapq.heapify(heap)
     
     while heap:
-        curr_node, curr_distance = heapq.heappop(heap)
-        solved[curr_node] = True
+        curr_node_index = int(heapq.heappop(heap)[1])
+        curr_node = node.Node(graph, curr_node_index)
+        solved[curr_node.index] = True
 
-        for neighbor in graph[curr_node][1]:
-            distance_to_neighbor = calculate_distance(graph, curr_node, neighbor)
-            alt = curr_distance + distance_to_neighbor
-            dis = distances[neighbor]
-            if alt < dis:
-                print(dis)
+        if curr_node_index == target:
+            break
 
+        for index in curr_node.neighbors:
+            neighbor = node.Node(graph, index)
+            distance_to_neighbor = curr_node.results[neighbor.index]
+            alt = distances[curr_node.index] + distance_to_neighbor
+            if solved[neighbor.index] == False and alt < distances[neighbor.index]:
+                distances[neighbor.index] = alt
+                parent[neighbor.index] = curr_node.index
+                heapq.heappush(heap, (alt, str(neighbor.index)))
 
-    return [1,2]
+    path = []
+    n = target
+    while n != -1:
+        path.append(n)
+        n = parent[n]
+    path.reverse()
+    
+    return path
 
 
 def path_is_valid(graph, path):
