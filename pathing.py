@@ -86,7 +86,11 @@ def get_dijkstra_path():
     target = global_game_data.target_node[graph_index]
     
     dijkstra_path_to_target = generate_dijkstra_path(graph, 0, target)
-    return [1,2]
+    dijkstra_path_to_end = generate_dijkstra_path(graph, target, len(graph) - 1)
+
+    dijkstra_path = dijkstra_path_to_target + dijkstra_path_to_end
+    print(dijkstra_path)
+    return dijkstra_path
 
 def generate_random_path(graph, start, target):
     path = []
@@ -225,6 +229,7 @@ def generate_dijkstra_path(graph, start, target):
         path.append(n)
         n = parent[n]
     path.reverse()
+    path.remove(start)
     
     return path
 
