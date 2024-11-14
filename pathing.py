@@ -47,8 +47,8 @@ def get_dfs_path():
 
     dfs_path = dfs_path_to_target + dfs_path_to_end[1:]
 
-    assert(target in dfs_path, "path doesn't hit target")
-    assert(dfs_path[-1] == len(graph) - 1, "path doesn't stop at end")
+    assert target in dfs_path, "path doesn't hit target"
+    assert dfs_path[-1] == len(graph) - 1, "path doesn't stop at end"
 
     '''
     for i in range(len(dfs_path) - 2):
@@ -72,8 +72,8 @@ def get_bfs_path():
 
     bfs_path = bfs_path_to_target + bfs_path_to_end[1:]
 
-    assert(target in bfs_path, "path doesn't hit target")
-    assert(bfs_path[-1] == len(graph) - 1, "path doesn't stop at end")
+    assert target in bfs_path, "path doesn't hit target"
+    assert bfs_path[-1] == len(graph) - 1, "path doesn't stop at end"
 
 
     return bfs_path
@@ -88,8 +88,11 @@ def get_dijkstra_path():
     dijkstra_path_to_target = generate_dijkstra_path(graph, 0, target)
     dijkstra_path_to_end = generate_dijkstra_path(graph, target, len(graph) - 1)
 
-    dijkstra_path = dijkstra_path_to_target + dijkstra_path_to_end
-    print(dijkstra_path)
+    dijkstra_path = dijkstra_path_to_target[1:] + dijkstra_path_to_end[1:]
+    
+    assert dijkstra_path_to_target[0] == 0, "original dijkstra path didn't contain start"
+    assert dijkstra_path[len(dijkstra_path) - 1] == len(graph) - 1, "dijkstra path doesn't contain the end node"
+
     return dijkstra_path
 
 def generate_random_path(graph, start, target):
@@ -229,7 +232,6 @@ def generate_dijkstra_path(graph, start, target):
         path.append(n)
         n = parent[n]
     path.reverse()
-    path.remove(start)
     
     return path
 
