@@ -93,6 +93,12 @@ def get_dijkstra_path():
     assert dijkstra_path_to_target[0] == 0, "original dijkstra path didn't contain start"
     assert dijkstra_path[len(dijkstra_path) - 1] == len(graph) - 1, "dijkstra path doesn't contain the end node"
 
+    for i in range(len(dijkstra_path) - 2):
+        next = i + 1
+        assert next in graph[i][1], "found an invalid edge {i}, {next}"
+
+    assert path_is_valid(graph, dijkstra_path), "dijksta path isn't valid"
+
     return dijkstra_path
 
 def generate_random_path(graph, start, target):
