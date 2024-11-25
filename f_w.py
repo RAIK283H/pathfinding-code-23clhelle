@@ -20,15 +20,17 @@ def create_adjacency_matrix(graph):
 def floyd_warshall(W):
 
     distance = [row[:] for row in W]
+    parent = []
     parent = [[None if W[i][j] == float('inf') else i for j in range(len(distance))] for i in range(len(distance))]
 
     for k in range(len(W)):
         for i in range(len(W)):
             for j in range(len(W)):
                 if distance[i][j] > distance[i][k] + distance[k][j]:
+                    distance[i][j] = distance[i][k] + distance[k][j]
                     parent[i][j] = parent[k][j]
     
-    return parent
+    return distance, parent
 
 def reconstruct_path(parent, start, end):
     if parent[start][end] is None:
@@ -44,14 +46,39 @@ def reconstruct_path(parent, start, end):
 graph = graph_data.graph_data[0]
 adj_matrix = create_adjacency_matrix(graph)
 
-result_matrix = floyd_warshall(adj_matrix)
+dist_matrix, parent_matrix = floyd_warshall(adj_matrix)
+
+print("Adjacency Matrix:")
+for row in adj_matrix:
+    print(row)
+
+print("Distance Matrix:")
+for row in dist_matrix:
+    print(row)
+
+print("Parent Matrix:")
+for row in parent_matrix:
+    print(row)
 
 print("\nShortest paths:")
 for i in range(len(graph)):
     for j in range(len(graph)):
         if i != j:
-            path = reconstruct_path(result_matrix, i, j)
+            path = reconstruct_path(parent_matrix, i, j)
             if path:
                 print(f"Path from {i} to {j}: {path}")
             else:
                 print(f"No path from {i} to {j}")
+
+print("DONE")
+
+print("\nShortest paths:")
+for i in range(len(graph)):
+    for j in range(len(graph)):
+        if i != j:
+            path = reconstruct_path(parent_matrix, i, j)
+            if path:
+                print(f"Path from {i} to {j}: {path}, Distance: {dist_matrix[i][j]}")
+            else:
+                print(f"No path from {i} to {j}")
+
