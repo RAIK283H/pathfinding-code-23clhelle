@@ -61,12 +61,6 @@ adj_matrix = create_adjacency_matrix(graph)
 
 dist_matrix, parent_matrix = floyd_warshall(adj_matrix)
 
-print("\nShortest paths:")
-for i in range(len(graph)):
-    for j in range(len(graph)):
-        if i != j:
-            path = reconstruct_path(parent_matrix, i, j)
-            if path:
-                print(f"Path from {i} to {j}: {path}")
-            else:
-                print(f"No path from {i} to {j}")
+path = reconstruct_path(parent_matrix, 0, len(graph) - 1)
+
+print(f"Shortest path: {path}")
