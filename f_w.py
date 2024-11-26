@@ -21,7 +21,15 @@ def floyd_warshall(W):
 
     distance = [row[:] for row in W]
     parent = []
-    parent = [[None if W[i][j] == float('inf') else i for j in range(len(distance))] for i in range(len(distance))]
+    for i in range(len(W)):
+        row = []
+        for j in range(len(W)):
+            if W[i][j] == float('inf') or i == j:
+                row.append(None)
+            else:
+                row.append(i)
+        parent.append(row)
+
 
     for k in range(len(W)):
         for i in range(len(W)):
@@ -37,7 +45,12 @@ def reconstruct_path(parent, start, end):
         return []
     
     path = []
+    visited = set()
     while end is not None:
+        if end in visited:
+            print(f"Cycle detected at node {end}")
+            break
+        visited.add(end)
         path.append(end)
         end = parent[start][end]
     
@@ -48,18 +61,6 @@ adj_matrix = create_adjacency_matrix(graph)
 
 dist_matrix, parent_matrix = floyd_warshall(adj_matrix)
 
-print("Adjacency Matrix:")
-for row in adj_matrix:
-    print(row)
-
-print("Distance Matrix:")
-for row in dist_matrix:
-    print(row)
-
-print("Parent Matrix:")
-for row in parent_matrix:
-    print(row)
-
 print("\nShortest paths:")
 for i in range(len(graph)):
     for j in range(len(graph)):
@@ -69,16 +70,3 @@ for i in range(len(graph)):
                 print(f"Path from {i} to {j}: {path}")
             else:
                 print(f"No path from {i} to {j}")
-
-print("DONE")
-
-print("\nShortest paths:")
-for i in range(len(graph)):
-    for j in range(len(graph)):
-        if i != j:
-            path = reconstruct_path(parent_matrix, i, j)
-            if path:
-                print(f"Path from {i} to {j}: {path}, Distance: {dist_matrix[i][j]}")
-            else:
-                print(f"No path from {i} to {j}")
-
