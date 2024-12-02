@@ -56,11 +56,18 @@ def reconstruct_path(parent, start, end):
     
     return path[::-1]
 
-graph = graph_data.graph_data[0]
-adj_matrix = create_adjacency_matrix(graph)
+def shortest_path(graph):
+    
+    adj_matrix = create_adjacency_matrix(graph)
 
-dist_matrix, parent_matrix = floyd_warshall(adj_matrix)
+    dist_matrix, parent_matrix = floyd_warshall(adj_matrix)
 
-path = reconstruct_path(parent_matrix, 0, len(graph) - 1)
+    path = reconstruct_path(parent_matrix, 0, len(graph) - 1)
 
-print(f"Shortest path: {path}")
+    return path
+
+
+graphs = graph_data.graph_data
+for graph in graphs:
+    path = shortest_path(graph)
+    print(f"Graph {graphs.index(graph) + 1} shortest path: {path}")
