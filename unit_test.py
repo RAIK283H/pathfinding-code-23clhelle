@@ -121,6 +121,24 @@ class TestPathFinding(unittest.TestCase):
             ]
         self.assertEqual(result, expected, "the adjacency matrix was not created correctly")
         
+    def test_floyd_warshall_parent(self):
+        matrix = [[0, 282.842712474619, float('inf')], 
+                  [282.842712474619, 0, 200.0], 
+                  [float('inf'), 200.0, 0]]
+        distance, result = f_w.floyd_warshall(matrix)
+        expected = [[None, 0, 1], 
+                    [1, None, 1], 
+                    [1, 2, None]]
+        self.assertEqual(result, expected, "floyd warshall did not return the correct parent matrix")
 
+    def test_floyd_warshall_distance(self):
+        matrix = [[0, 282.842712474619, float('inf')], 
+                  [282.842712474619, 0, 200.0], 
+                  [float('inf'), 200.0, 0]]
+        distance, parent = f_w.floyd_warshall(matrix)
+        expected = [[0, 282.842712474619, 482.842712474619], 
+                    [282.842712474619, 0, 200.0], 
+                    [482.842712474619, 200.0, 0]]
+        self.assertEqual(distance, expected, "floyd warshall did not return the correct distance matrix")
 if __name__ == '__main__':
     unittest.main()
